@@ -1,0 +1,67 @@
+import random
+
+print("================================")
+print("        لعبة المخفي 🔐")
+print("================================")
+
+while True:
+    print("\nالقائمة الرئيسية:")
+    print("1 - تعليمات اللعبة")
+    print("2 - بدء اللعبة")
+    print("3 - إنهاء البرنامج")
+
+    option = input("أدخل رقم الخيار: ")
+
+    while option not in ["1", "2", "3"]:
+        print("❌ الخيار غير صحيح.")
+        option = input("أدخل 1 أو 2 أو 3: ")
+
+    if option == "1":
+        print("\n===== تعليمات لعبة المخفي =====")
+        print("خمن الرقم السري المكون من أربعة أرقام.")
+        print("يجب أن تكون الأرقام مختلفة.")
+        print("⭐ النجمة: رقم صحيح وفي المكان الصحيح.")
+        print("🌙 القمر: رقم صحيح ولكن في المكان الخطأ.")
+        print("استمر في التخمين حتى تحصل على 4 نجوم.")
+
+    elif option == "2":
+        secret = ''.join(random.sample("0123456789", 4))
+        attempts = 0
+
+        print("\n===== بدأت لعبة المخفي =====")
+        print("لقد تم اختيار الرقم المخفي!")
+        print("حاول تخمينه.")
+
+        while True:
+            guess = input("أدخل تخمينك المكون من 4 أرقام: ")
+
+            if len(guess) != 4 or not guess.isdigit():
+                print("❌ يجب إدخال 4 أرقام.")
+                continue
+
+            if len(set(guess)) != 4:
+                print("❌ يجب ألا تتكرر الأرقام.")
+                continue
+
+            attempts += 1
+            stars = 0
+            moons = 0
+
+            for i in range(4):
+                if guess[i] == secret[i]:
+                    stars += 1
+                elif guess[i] in secret:
+                    moons += 1
+
+            print("⭐ عدد النجوم:", stars)
+            print("🌙 عدد الأقمار:", moons)
+
+            if stars == 4:
+                print("\n🎉 مبروك! لقد اكتشفت الرقم المخفي!")
+                print("عدد المحاولات:", attempts)
+                break
+
+    elif option == "3":
+        print("\nشكراً لك على لعب المخفي 🔐")
+        print("إلى اللقاء!")
+        break
